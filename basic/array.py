@@ -33,3 +33,6 @@ print ("删除第三个元素 : ", list)
 for item in list:
     print("%s"%(item))
 
+# 复制数组
+print(list.copy())
+
