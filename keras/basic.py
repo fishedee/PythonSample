@@ -21,7 +21,7 @@ model.add(Activation("sigmoid"))
 model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
 
 #训练数据
-model.fit(x_train, y_train, epochs=100, batch_size=32,verbose=1)
+model.fit(x_train, y_train, epochs=10, batch_size=32)
 
 #测试数据
 loss_and_metrics = model.evaluate(x_train, y_train, batch_size=128)
