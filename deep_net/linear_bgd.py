@@ -7,7 +7,7 @@ sample = 10
 num_input = 5
 
 #加入训练数据
-normalRand = np.random.normal(0,1,sample)
+normalRand = np.random.normal(0,0.1,sample)
 weight = [7,99,-1,-333,0.06]
 x_train = np.random.random((sample, num_input))
 y_train = np.zeros((sample,1))
@@ -15,7 +15,7 @@ for i in range (0,len(x_train)):
 	total = 0
 	for j in range(0,len(x_train[i])):
 		total += weight[j]*x_train[i,j]
-	y_train[i] = total
+	y_train[i] = total+normalRand[i]
 
 # 训练
 weight = np.random.random(num_input+1)
