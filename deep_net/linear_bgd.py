@@ -21,7 +21,7 @@ for i in range (0,len(x_train)):
 weight = np.random.random(num_input+1)
 rate = 0.05
 
-for epoch in range(0,1000):
+for epoch in range(0,100):
 
 	# 计算loss
 	predictY = np.zeros((len(x_train,)))

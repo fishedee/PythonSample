@@ -7,7 +7,7 @@ def sigmoid(x):
 def grad_sigmoid(x):
 	return math.exp(-x)/((1+math.exp(-x))**2)
 
-# 普通的全梯度下降方法
+# 随机梯度下降+sigmoid输出方法
 sample = 100
 num_input = 5
 
@@ -24,8 +24,8 @@ for i in range (0,len(x_train)):
 
 # 训练
 weight = np.random.random(num_input+1)
-rate = 0.03
-batch = 20
+rate = 0.05
+batch = 32
 
 def train(x_train,y_train):
 	# 计算loss
@@ -52,7 +52,7 @@ def train(x_train,y_train):
 	weight[num_input] = weight[num_input] - rate*grade
 	return loss
 
-for epoch in range(0,5000):
+for epoch in range(0,100):
 	begin = 0
 	while begin < len(x_train):
 		end = begin+batch
