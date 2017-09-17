@@ -13,7 +13,7 @@ class Loss:
 		predictY = predictOutput
 		layerLoss = predictOutput - realOutput
 		loss = np.dot(layerLoss,layerLoss.T)*0.5
-		acc = np.fabs(np.dot(predictOutput,realOutput.T))/(predictOutputNorm*realOutputNorm)
+		acc = 0
 		return predictY,layerLoss,loss,acc
 	def get(self,predictOutput,realOutput):
 		if self._type == "mse":

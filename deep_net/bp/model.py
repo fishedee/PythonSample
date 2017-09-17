@@ -13,10 +13,12 @@ class Model:
 		self._weight = []
 		for layer in self._layer:
 			self._weight.append(layer.get_init_weight())
+	def get_weight(self):
+		return self._weight
 	def _trainSingle(self,x,y,grade):
 		if x.ndim == 1:
 			x = x[:,None].T
-		if y.ndim == 1:
+		if y is not None and y.ndim == 1:
 			y = y[:,None]
 		output = [0]*len(self._layer)
 		loss = [0]*len(self._layer)

@@ -23,7 +23,7 @@ lastGrade = np.random.random(num_input+1)
 rate = 0.05
 discount = 0.9
 
-for epoch in range(0,100):
+for epoch in range(0,1000):
 
 	# 计算loss
 	predictY = np.zeros((len(x_train,)))
