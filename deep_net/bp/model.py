@@ -48,8 +48,8 @@ class Model:
 				nextLoss = layerLoss
 			else:
 				nextLoss = loss[i+1]
-			loss[i] = layer.get_loss(nextLoss,weight)
-			grade[i] = grade[i] + layer.get_grade(nextLoss,preOutput)
+			loss[i] = layer.get_loss(nextLoss,weight,preOutput)
+			grade[i] = grade[i] + layer.get_grade(nextLoss,weight,preOutput)
 
 		return totalLoss,totalAcc,predictY
 		

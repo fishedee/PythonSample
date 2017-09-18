@@ -30,3 +30,5 @@ loss = Loss("mse")
 model.compile(optimizer=optimizer,loss=loss)
 
 model.fit(x_train,y_train,epochs=1000)
+
+print(model.get_weight())

@@ -16,10 +16,11 @@ class Activation:
 			return 1.0/(1.0+np.exp(-inData))
 		else:
 			raise Exception("Unknown Activation Type: %s"%(self._type))
-	def get_loss(self,nextLoss,weight):
+	def get_loss(self,nextLoss,weight,inData):
 		if self._type == "sigmoid":
-			return nextLoss*np.exp(-nextLoss)/((1+np.exp(-nextLoss))**2)
+			inData = inData.T
+			return nextLoss*np.exp(-inData)/((1+np.exp(-inData))**2)
 		else:
 			raise Exception("Unknown Activation Type: %s"%(self._type))
-	def get_grade(self,nextLoss,inData):
+	def get_grade(self,nextLoss,weight,inData):
 		return np.array([])

@@ -17,8 +17,8 @@ class Dense:
 		return np.zeros((inputShape,self._unit))
 	def get_output(self,weight,inData):
 		return np.dot(self._add_one(inData),weight)
-	def get_loss(self,nextLoss,weight):
+	def get_loss(self,nextLoss,weight,inData):
 		loss = np.dot(weight,nextLoss)
 		return loss[:-1,]
-	def get_grade(self,nextLoss,inData):
+	def get_grade(self,nextLoss,weight,inData):
 		return np.dot(nextLoss,self._add_one(inData)).T

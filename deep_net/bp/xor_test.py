@@ -18,11 +18,11 @@ model.add(Activation("sigmoid"))
 model.add(Dense(1))
 model.add(Activation("sigmoid"))
 
-optimizer = Optimizer(rate=0.05,momentum=0.9)
+optimizer = Optimizer(rate=0.1,momentum=0.9)
 loss = Loss("mse")
 model.compile(optimizer=optimizer,loss=loss)
 
-model.fit(x_train,y_train,epochs=1000)
+model.fit(x_train,y_train,epochs=10000)
 
 for i in range(0,len(x_train)):
 	print("data :%d,%d,%f"%(x_train[i,0],x_train[i,1],model.predict(x_train[i])))
