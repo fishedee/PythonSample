@@ -19,7 +19,7 @@ class Model:
 		if x.ndim == 1:
 			x = x[:,None].T
 		if y is not None and y.ndim == 1:
-			y = y[:,None]
+			y = y[:,None].T
 		output = [0]*len(self._layer)
 		loss = [0]*len(self._layer)
 
