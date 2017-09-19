@@ -40,6 +40,7 @@ class Model:
 		for i in range(len(self._layer)-1,-1,-1):
 			weight = self._weight[i]
 			layer = self._layer[i]
+			curOutput = output[i]
 			if i == 0:
 				preOutput = x
 			else:
@@ -48,8 +49,8 @@ class Model:
 				nextLoss = layerLoss
 			else:
 				nextLoss = loss[i+1]
-			loss[i] = layer.get_loss(nextLoss,weight,preOutput)
-			grade[i] = grade[i] + layer.get_grade(nextLoss,weight,preOutput)
+			loss[i] = layer.get_loss(nextLoss,weight,preOutput,curOutput)
+			grade[i] = grade[i] + layer.get_grade(nextLoss,weight,preOutput,curOutput)
 
 		return totalLoss,totalAcc,predictY
 		
