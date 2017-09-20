@@ -15,7 +15,7 @@ y_train = to_categorical(y_train,2)
 
 # 训练
 model = Model()
-model.add(Dense(10,input_shape=(2,)))
+model.add(Dense(10,input_shape=(1,2)))
 model.add(Activation("sigmoid"))
 model.add(Dense(2))
 

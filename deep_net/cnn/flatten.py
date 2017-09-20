@@ -1,10 +1,9 @@
 import numpy as np
 class Flatten:
-	def __init__(self,unit,input_shape=None):
-		self._unit = unit
+	def __init__(self,input_shape=None):
 		self._input_shape = input_shape
 		self._setOutputShape()
-	def _setOutputShape():
+	def _setOutputShape(self):
 		if self._input_shape is not None:
 			result = 1
 			for i in range(0,len(self._input_shape)):

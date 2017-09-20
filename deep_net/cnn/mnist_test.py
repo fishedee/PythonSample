@@ -3,9 +3,8 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # 加入上级目录
-import path, sys 
-import folder = path.path(__file__).abspath() 
-sys.path.append(folder.parent) 
+import sys
+sys.path.append("..")
 
 from bp.model import *
 from bp.dense import *
@@ -13,6 +12,7 @@ from bp.activation import *
 from bp.loss import *
 from bp.optimizer import *
 from bp.util import *
+from bp.dropout import *
 from conv import *
 from pooling import *
 from flatten import *
@@ -43,14 +43,10 @@ y_test = to_categorical(y_test, num_classes)
 model = Model()
 model.add(Conv2D(32,kernal_size=(3,3),input_shape=(1,28,28)))
 model.add(Activation("relu"))
-model.add(Conv2D(64,kernal_size=(3,3))
-model.add(Activation("relu"))
-model.add(MaxPooling2D(64,pool_size=(2,2))
-model.add(Dropout(0.25))
+model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Flatten())
 model.add(Dense(128))
 model.add(Activation("relu"))
-model.add(Dropout(0.5))
 model.add(Dense(num_classes))
 
 optimizer = Optimizer(rate=0.01,momentum=0.9)

@@ -13,7 +13,7 @@ y_train = np.array([[1],[1],[0],[0]])
 
 # 训练
 model = Model()
-model.add(Dense(10,input_shape=(2,)))
+model.add(Dense(10,input_shape=(1,2)))
 model.add(Activation("relu"))
 model.add(Dense(1))
 model.add(Activation("sigmoid"))

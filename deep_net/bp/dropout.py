@@ -12,13 +12,9 @@ class Dropout:
 	def get_init_grade(self):
 		return np.array([])
 	def get_output(self,weight,inData):
-		total = len(inData.flat)
-		zeroTotal = int(total * self._closePor)
-		oneTotal = total - zeroTotal
-		oneData = [1]*oneTotal
-		zeroData = [0]*zeroTotal
-		self._drop = np.array(oneData+zeroData)
-		np.random.shuffle(self._drop)
+		self._drop = np.random.random(inData.shape)
+		self._drop[self._drop<self._closePor] = 0
+		self._drop[self._drop>=self._closePor] = 1
 		return inData * self._drop
 	def get_loss(self,nextLoss,weight,inData,outData):
 		return nextLoss* self._drop

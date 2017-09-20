@@ -1,20 +1,23 @@
+import sys
+sys.path.append("..")
 import numpy as np
-from initer import Initer
+from scipy import signal
+from bp.initer import Initer
 class Conv2D:
 	def __init__(self,unit,kernal_size,input_shape=None):
 		self._unit = unit
 		self._kernal_shape = kernal_size
 		self._input_shape = input_shape 
 		self._setOutputShape()
-	def _setOutputShape():
+	def _setOutputShape(self):
 		if self._input_shape is not None:
 			channel = self._unit
 			height = self._input_shape[1]-self._kernal_shape[0]+1
 			width = self._input_shape[2]-self._kernal_shape[1]+1
 			self._output_shape = (channel,height,width)
-			self._weight_shape = (self,_unit,self.input_shape[0])+self._kernal_shape
-	def _convolve(a,b):
-		return np.convolve(a,b.T,mode="valid")
+			self._weight_shape = (self._unit,self._input_shape[0])+self._kernal_shape
+	def _convolve(self,a,b):
+		return signal.correlate2d(a, b, mode='valid')
 	def set_input_shape(self,input_shape):
 		self._input_shape = input_shape
 		self._setOutputShape()
@@ -31,7 +34,7 @@ class Conv2D:
 		result = np.zeros(self._output_shape)
 		for i in range(0,len(weight)):
 			for j in range(0,len(weight[i])):
-				result[i] = result[i]+self._convolve(inData[i,j],weight[i,j])
+				result[i] = result[i]+self._convolve(inData[j],weight[i,j])
 
 		return result
 	def get_loss(self,nextLoss,weight,inData,outData):

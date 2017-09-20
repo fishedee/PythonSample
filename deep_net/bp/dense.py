@@ -1,5 +1,8 @@
+import sys
+sys.path.append("..")
+
 import numpy as np
-from initer import Initer
+from bp.initer import Initer
 class Dense:
 	def __init__(self,unit,input_shape=None):
 		self._unit = unit
@@ -9,13 +12,13 @@ class Dense:
 	def set_input_shape(self,input_shape):
 		self._input_shape = input_shape
 	def get_output_shape(self):
-		return (self._unit,)
+		return (1,self._unit)
 	def get_init_weight(self):
-		inputShape = self._input_shape[0]+1
+		inputShape = self._input_shape[1]+1
 		initer = Initer()
 		return initer.get(inputShape,self._unit,(inputShape,self._unit))
 	def get_init_grade(self):
-		inputShape = self._input_shape[0]+1
+		inputShape = self._input_shape[1]+1
 		return np.zeros((inputShape,self._unit))
 	def get_output(self,weight,inData):
 		return np.dot(self._add_one(inData),weight)

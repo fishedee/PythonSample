@@ -29,7 +29,7 @@ for i in range (0,len(x_train)):
 # 训练
 
 model = Model()
-model.add(Dense(1,input_shape=(5,)))
+model.add(Dense(1,input_shape=(1,5)))
 model.add(Activation("sigmoid"))
 
 optimizer = Optimizer(rate=0.05,momentum=0.9)

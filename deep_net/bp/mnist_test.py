@@ -33,7 +33,7 @@ y_test = to_categorical(y_test, num_classes)
 # 训练
 
 model = Model()
-model.add(Dense(512,input_shape=(784,)))
+model.add(Dense(512,input_shape=(1,784)))
 model.add(Activation("relu"))
 model.add(Dense(512))
 model.add(Activation("relu"))

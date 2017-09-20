@@ -1,11 +1,10 @@
 import numpy as np
 class MaxPooling2D:
-	def __init__(self,unit,pool_size,input_shape=None):
-		self._unit = unit
+	def __init__(self,pool_size,input_shape=None):
 		self._kernal_shape = pool_size
 		self._input_shape = input_shape
 		self._setOutputShape()
-	def _setOutputShape():
+	def _setOutputShape(self):
 		if self._input_shape is not None:
 			channels = self._input_shape[0]
 			height = int(self._input_shape[1]/self._kernal_shape[0])
@@ -25,7 +24,7 @@ class MaxPooling2D:
 		self._maxPos = [[],[],[]]
 		strideHeight = self._kernal_shape[0]
 		strideWidth = self._kernal_shape[1]
-		for channel in range(0,len(result))
+		for channel in range(0,len(result)):
 			for i in range(0,len(result[channel])):
 				for j in range(0,len(result[channel,i])):
 					maxDatai = None
