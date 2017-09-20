@@ -8,6 +8,7 @@ from activation import *
 from loss import *
 from optimizer import *
 from util import *
+from dropout import *
 import numpy as np
 from keras.datasets import mnist
 
@@ -35,8 +36,10 @@ y_test = to_categorical(y_test, num_classes)
 model = Model()
 model.add(Dense(512,input_shape=(784,)))
 model.add(Activation("relu"))
+model.add(Dropout(0.25))
 model.add(Dense(512,input_shape=(784,)))
 model.add(Activation("relu"))
+model.add(Dropout(0.25))
 model.add(Dense(10))
 
 optimizer = Optimizer(rate=0.01,momentum=0.9)

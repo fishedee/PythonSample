@@ -67,10 +67,12 @@ class Model:
 			totalAcc += acc
 		
 		# 更新梯度
+		for i in range(0,len(grade)):
+			grade[i] = grade[i]/len(x)
 		self._weight = self._optimizer.update(self._weight,grade)
 		return totalLoss,totalAcc
 		
-	def fit(self,x,y,epochs=10,batch_size=32):
+	def fit(self,x,y,epochs=10,batch_size=32,verbose=False):
 		for epoch in range(0,epochs):
 			totalLoss = 0
 			totalAcc = 0
@@ -82,6 +84,9 @@ class Model:
 				loss,acc = self._train(x[begin:end],y[begin:end])
 				totalLoss += loss
 				totalAcc += acc
+				if verbose:
+					size = end-begin
+					print("epoch: %d-begin: %d-loss: %f-acc: %f"%(epoch,begin,loss/size,acc/size))
 				begin = end
 			print("epoch: %d-loss: %f-acc: %f"%(epoch,totalLoss/len(x),totalAcc/len(x)))
 	def evaluate(self,x,y):
