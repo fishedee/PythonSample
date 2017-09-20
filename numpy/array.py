@@ -44,9 +44,9 @@ print(a)
 # 多维array
 
 d = np.arange(0, 60, 10).reshape(-1, 1) + np.arange(0, 6)
-print(d)
-print(d[(0,1,2,3,4),(1,2,3,4,5)])
-print(d[3:, [0, 2, 5]])
+print("m1",d)
+print("m2",d[(0,1,2,3,4),(1,2,3,4,5)])
+print("m3",d[3:, [0, 2, 5]])
 
 # 遍历array
 d = np.arange(0, 60, 10).reshape(-1, 1) + np.arange(0, 6)

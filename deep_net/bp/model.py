@@ -90,7 +90,8 @@ class Model:
 				begin = end
 			print("epoch: %d-loss: %f-acc: %f"%(epoch,totalLoss/len(x),totalAcc/len(x)))
 	def evaluate(self,x,y):
-		return self._train(x,y)
+		loss,acc = self._train(x,y)
+		return loss/len(x),acc/len(x)
 	def predict(self,x):
 		grade = []
 		for layer in self._layer:
