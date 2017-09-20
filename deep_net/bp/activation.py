@@ -21,11 +21,31 @@ class Activation:
 			result[inData>=0]=1
 			return nextLoss*result
 
+	class softmax:
+		def __init__(self):
+			pass
+		def get_output(self,weight,inData):
+			result = np.exp(inData)
+			total = np.sum(result)
+			return result/total
+		def get_loss(self,nextLoss,weight,inData,outData):
+			weightLoss = np.zeros((inData.shape[1],outData.shape[1]))
+			for i in range(0,len(outData[0])):
+				for j in range(0,len(outData[0])):
+					if i == j:
+						data = outData[0,i]*(1-outData[0,i])
+					else:
+						data = -outData[0,i]*outData[0,j]
+					weightLoss[i,j] = data
+			return np.dot(nextLoss,weightLoss)
+
 	def __init__(self,type,input_shape=None):
 		if type == "sigmoid":
 			self._handler = self.sigmoid()
 		elif type == "relu":
 			self._handler = self.relu()
+		elif type == "softmax":
+			self._handler = self.softmax()
 		else:
 			raise Exception("Unknown Activation Type: %s"%(self._type))
 		self._input_shape = input_shape
