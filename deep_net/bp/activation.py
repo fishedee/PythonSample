@@ -25,6 +25,8 @@ class Activation:
 		def __init__(self):
 			pass
 		def get_output(self,weight,inData):
+			maxData = np.max(inData)
+			inData -= maxData
 			result = np.exp(inData)
 			total = np.sum(result)
 			return result/total
