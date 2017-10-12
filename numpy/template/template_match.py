@@ -1,4 +1,5 @@
 import numpy as np
+import time
 from scipy import signal
 from PIL import Image
 from matplotlib import pyplot as plt  
@@ -30,9 +31,6 @@ def related2d_valid(a,b):
 	cropW2 = ow - w - cropW
 	result = result[cropH:-cropH2,cropW:-cropW2]
 	return result
-
-def related2d_valid2(a,b):
-	return signal.fftconvolve(a,np.rot90(b,2),mode="valid")
 
 def cumsum(a):
 	a = a **2
@@ -76,19 +74,23 @@ def b_cumsum(a,b):
 def template_match(a,b):
 	asum = a_cumsum(a,b)
 	bsum = b_cumsum(a,b)
-	mutli = related2d_valid2(a,b)
-	result = asum - 2*mutli+bsum
-	minIndex = np.argmin(result)
-	index = (int(minIndex/len(result)),minIndex%len(result))
+	mutli = related2d_valid(a,b)
+	result = mutli/(np.sqrt(bsum)*np.sqrt(asum))
+	minIndex = np.argmax(result)
+	index = (int(minIndex/len(result[0])),minIndex%len(result[0]))
 	return index,result[index]
 
-a = Image.open('./a.jpg').convert('L') 
-a2 = np.array(a).astype('float32')
-b = Image.open('./b.jpg').convert('L')
-b2 = np.array(b).astype('float32')
+a = Image.open('./a2.jpg').convert('L') 
+a2 = np.array(a).astype('float32')/255
+b = Image.open('./b2.jpg').convert('L')
+b2 = np.array(b).astype('float32')/255
+
+t1 = time.clock()
 
 result = template_match(a2,b2)
 
+t2 = time.clock()
+print("time:%fs"%((t2-t1)))
 
 print(result)
 
@@ -102,5 +104,5 @@ fig = plt.figure()
 pointx = [x, x+w, x+w, x, x]  
 pointy = [y, y, y+h, y+h, y]  
 plt.plot(pointx, pointy, 'r')
-plt.imshow(a) 
+plt.imshow(a,cmap='Greys_r') 
 plt.show() 
