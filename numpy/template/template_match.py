@@ -7,13 +7,21 @@ from matplotlib import pyplot as plt
 def convolve2d(a,b):
 	height = len(a) + len(b) - 1
 	width = len(a[0])+len(b[0])-1
-	a2 = np.fft.fft2(a,(height,width))
-	b2 = np.fft.fft2(b,(height,width))
+	FFT_height = 2 ** (int(np.log2(height)) + 1)
+	FFT_width = 2 ** (int(np.log2(width)) + 1)
+	a2 = np.fft.fft2(a,(FFT_height,FFT_width))
+	b2 = np.fft.fft2(b,(FFT_height,FFT_width))
 	c2 = np.fft.ifft2(a2*b2)
-	return c2.real
+	data =  c2.real[:height,:width]
+	return data
 
 def related2d(a,b):
-	return convolve2d(a,np.rot90(b,2))
+	b = np.rot90(b,2)
+	t1 = time.clock()
+	result = convolve2d(a,b)
+	t2 = time.clock()
+	print("convolve2d time:%fs"%((t2-t1)))
+	return result
 
 def related2d_valid(a,b):
 	ah = len(a)
@@ -22,7 +30,11 @@ def related2d_valid(a,b):
 	bw = len(b[0])
 	h = ah-bh+1
 	w = aw-bw+1
+	t1 = time.clock()
 	result = related2d(a,b)
+	t2 = time.clock()
+	print("related2d time:%fs"%((t2-t1)))
+
 	oh = len(result)
 	ow = len(result[0])
 	cropH = int((oh-h)/2)
@@ -31,6 +43,9 @@ def related2d_valid(a,b):
 	cropW2 = ow - w - cropW
 	result = result[cropH:-cropH2,cropW:-cropW2]
 	return result
+
+def related2d_valid2(a,b):
+	return signal.fftconvolve(a,np.rot90(b,2),mode="valid")
 
 def cumsum(a):
 	a = a **2
@@ -72,7 +87,11 @@ def b_cumsum(a,b):
 	return result
 
 def template_match(a,b):
+	t1 = time.clock()
 	asum = a_cumsum(a,b)
+	t2 = time.clock()
+	print("a_cumsum time:%fs"%((t2-t1)))
+
 	bsum = b_cumsum(a,b)
 	mutli = related2d_valid(a,b)
 	result = mutli/(np.sqrt(bsum)*np.sqrt(asum))
