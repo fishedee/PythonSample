@@ -44,9 +44,6 @@ def related2d_valid(a,b):
 	result = result[cropH:-cropH2,cropW:-cropW2]
 	return result
 
-def related2d_valid2(a,b):
-	return signal.fftconvolve(a,np.rot90(b,2),mode="valid")
-
 def cumsum(a):
 	a = a **2
 	b = np.cumsum(a,axis=0)
@@ -59,23 +56,10 @@ def a_cumsum(a,b):
 	aw = len(a[0])
 	bw = len(b[0])
 	asum = cumsum(a)
-	result = np.zeros((ah-bh+1,aw-bw+1))
-	for i in range (0,len(result)):
-		for j in range(0,len(result[0])):
-			x = i +bh-1
-			y = j +bw-1
-			left = 0
-			top = 0
-			center = 0
-			if x -bh >= 0 and y >=0:
-				top = asum[x-bh,y]
-			if x >= 0 and y - bw >= 0:
-				left = asum[x,y-bw]
-			if x - bh >= 0 and y -bw >= 0:
-				center = asum[x-bh,y-bw]
-
-			result[i,j] = asum[x,y]-top-left+center
-	return result
+	h = ah -bh +1
+	w = aw -bw +1
+	asum = np.lib.pad(asum, ((1, 0), (1, 0)), 'constant', constant_values=(0))
+	return asum[bh:bh+h,bw:bw+w]-asum[0:h,bw:bw+w]-asum[bh:bh+h,0:w]+asum[0:h,0:w]
 
 def b_cumsum(a,b):
 	bsum = cumsum(b)[-1,-1]
