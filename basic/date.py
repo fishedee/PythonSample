@@ -10,6 +10,9 @@ print(now,today)
 holiday = datetime.datetime(2018,10,14,12,34,56)
 print(holiday)
 
+#时间数据
+print(now.year,now.month,now.day,now.hour,now.minute,now.second)
+
 #时间运算
 prevDay = now-datetime.timedelta(days=1)
 nextMinute = now+datetime.timedelta(minutes=1)
